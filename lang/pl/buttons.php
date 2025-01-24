@@ -16,4 +16,6 @@ return [
     'button_back' => 'Powrót',
     'button_save' => 'Zapisz',
     'button_search' => 'Wyszukaj',
+    'export_excel' => 'Pobierz w Excel',
+    'export_pdf' => 'Pobierz w PDF',
 ];

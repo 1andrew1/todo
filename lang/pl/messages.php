@@ -32,4 +32,5 @@ return [
     'date_to' => 'Do daty',
     'task_edit' => 'Edytuj zadanie',
     'task_preview' => 'Podgląd zadania',
+    'tasks_report' => 'Raport listy zadań',
 ];

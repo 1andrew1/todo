@@ -16,4 +16,6 @@ return [
     'button_back' => 'Back',
     'button_save' => 'Save',
     'button_search' => 'Search',
+    'export_excel' => 'Download in Excel',
+    'export_pdf' => 'Download in PDF',
 ];

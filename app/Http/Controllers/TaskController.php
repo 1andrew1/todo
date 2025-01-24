@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TasksExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TaskController extends Controller
 {
@@ -114,4 +117,26 @@ class TaskController extends Controller
                 ->with('message', __('messages.task_delete_failed'));
         }
     }
+
+    public function exportExcel()
+    {
+        return Excel::download(new TasksExport, 'tasks.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $tasks = Task::all()->map(function ($task, $index) {
+            return [
+                'lp' => $index + 1,
+                'title' => $task->title,
+                'status' => $task->is_completed ? __('messages.task_closed') : __('messages.task_open'),
+                'created_at' => $task->created_at->format('Y-m-d H:i:s'),
+            ];
+        });
+
+        $pdf = Pdf::loadView('tasks.pdf', compact('tasks'));
+
+        return $pdf->download('tasks.pdf');
+}
+
 }

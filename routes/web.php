@@ -26,3 +26,6 @@ Route::get('lang/{lang}', function ($lang) {
     }
     return redirect()->back();
 })->name('lang');
+
+Route::get('/tasks/export-excel', [TaskController::class, 'exportExcel'])->name('tasks.exportExcel');
+Route::get('/tasks/export-pdf', [TaskController::class, 'exportPdf'])->name('tasks.exportPdf');
