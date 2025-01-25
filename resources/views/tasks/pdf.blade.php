@@ -37,14 +37,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($tasks as $task)
-                <tr>
-                    <td>{{ $task['lp'] }}</td>
-                    <td>{{ $task['title'] }}</td>
-                    <td>{{ $task['status'] }}</td>
-                    <td>{{ $task['created_at'] }}</td>
-                </tr>
-            @endforeach
+            @foreach ($tasks as $index => $task)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $task->title }}</td>
+                <td>{{ $task->is_completed ? __('messages.task_closed') : __('messages.task_open') }}</td>
+                <td>{{ $task->created_at->format('Y-m-d') }}</td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </body>

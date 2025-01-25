@@ -10,6 +10,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TasksExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+use Maatwebsite\Excel\Excel as ExcelWriter;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 class TaskController extends Controller
 {
     public function index(Request $request)
@@ -118,13 +121,69 @@ class TaskController extends Controller
         }
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new TasksExport, 'tasks.xlsx');
+        // Pobieranie przefiltrowanych danych
+        $query = Task::query();
+
+        // Wyszukiwanie po treści w nazwie
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+        
+        if ($request->filled('from_date') && $request->filled('to_date')) {
+            $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_completed', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $query->where('title', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $tasks = $query->get();
+
+        // Generowanie danych do Excela
+        $data = $tasks->map(function ($task, $index) {
+            return [
+                __('messages.lp') => $index + 1,
+                __('messages.task_title') => $task->title,
+                __('messages.task_status') => $task->is_completed ? __('messages.task_closed') : __('messages.task_open'),
+                __('messages.task_created_at') => $task->created_at->format('Y-m-d'),
+            ];
+        });
+
+        // Dodanie nagłówków do danych
+        $headers = [
+            __('messages.table_no'),
+            __('messages.table_name'),
+            __('messages.table_status'),
+            __('messages.table_date_created'),
+        ];
+
+        $data->prepend($headers);
+
+        // Tworzenie pliku Excel
+        return Excel::download(new class($data->toArray()) implements \Maatwebsite\Excel\Concerns\FromArray {
+            private $data;
+
+            public function __construct($data)
+            {
+                $this->data = $data;
+            }
+
+            public function array(): array
+            {
+                return $this->data;
+            }
+        }, 'tasks.xlsx');
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
+        /*
         $tasks = Task::all()->map(function ($task, $index) {
             return [
                 'lp' => $index + 1,
@@ -137,6 +196,28 @@ class TaskController extends Controller
         $pdf = Pdf::loadView('tasks.pdf', compact('tasks'));
 
         return $pdf->download('tasks.pdf');
-}
+        */
+    // Pobieramy dane z modelu z uwzględnieniem filtrów
+    $query = Task::query();
+
+    // Wyszukiwanie po treści w nazwie
+    if ($request->filled('search')) {
+       $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    if ($request->filled('from_date') && $request->filled('to_date')) {
+        $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
+    }
+
+    if ($request->filled('status')) {
+        $query->where('is_completed', $request->status);
+    }
+
+    $tasks = $query->get();
+
+    $pdf = PDF::loadView('tasks.pdf', compact('tasks'));
+
+    return $pdf->download('tasks.pdf');
+    }
 
 }
