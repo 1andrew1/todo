@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TaskController extends Controller
 {
+    private const MAX_TASKS = 100; // Limit liczby zadań
+
     public function index(Request $request)
     {
         $query = Task::query();
@@ -56,6 +58,13 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        // Sprawdzenie liczby zadań w bazie danych
+        if (Task::count() >= self::MAX_TASKS) {
+            return redirect()->route('tasks.index')
+                ->with('status', 'error')
+                ->with('message', __('messages.task_limit_reached'));
+        }
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
         ]);
@@ -64,8 +73,8 @@ class TaskController extends Controller
             Task::create($validated); // Utworzenie nowego zadania
             
             return redirect()->route('tasks.index')
-            ->with('status', 'success')
-            ->with('message', __('messages.task_created'));
+                ->with('status', 'success')
+                ->with('message', __('messages.task_created'));
         } catch (\Exception $e) {
             return redirect()->route('tasks.index')
                 ->with('status', 'error')

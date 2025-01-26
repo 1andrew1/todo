@@ -15,7 +15,7 @@ return [
     'task_updated' => 'Zadanie zostało pomyślnie zaktualizowane.',
     'task_update_failed' => 'Wystąpił błąd podczas edycji zadania.',
     'footer' => 'Wszystkie prawa zastrzeżone.',
-    'task' => 'Task',
+    'task' => 'Zadanie',
     'table_no' => 'L.p.',
     'table_name' => 'Nazwa',
     'table_status' => 'Status',
@@ -33,4 +33,5 @@ return [
     'task_edit' => 'Edytuj zadanie',
     'task_preview' => 'Podgląd zadania',
     'tasks_report' => 'Raport listy zadań',
+    'task_limit_reached' => 'Osiągnięto limit wprowadzonych danych.',
 ];

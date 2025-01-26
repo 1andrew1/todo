@@ -33,4 +33,5 @@ return [
     'task_edit' => 'Edit task',
     'task_preview' => 'Task preview',
     'tasks_report' => 'Tasks list report',
+    'task_limit_reached' => 'The limit of entered data has been reached.',
 ];
