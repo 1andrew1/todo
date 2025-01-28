@@ -17,7 +17,7 @@ class TaskSeeder extends Seeder
         // Tworzenie 100 losowych zadań
         for ($i = 0; $i < 100; $i++) {
             Task::create([
-                'title' => 'Zadanie ' . ($i + 1), //Str::random(10),
+                'title' => 'Task ' . ($i + 1), //Str::random(10),
                 'is_completed' => fake()->boolean(30), // 30% szans na zakończone zadanie
             ]);
         }
