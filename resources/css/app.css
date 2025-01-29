@@ -5,73 +5,66 @@
 
 /* Style globalne dla trybu high-contrast */
 html.high-contrast, body.high-contrast {
-    background-color: #000000; /* Czarny tło */
-    color: #ffffff; /* Biały tekst */
+    background-color: #000000;
+    color: #ffffff;
 }
 
 /* Dla linków */
 html.high-contrast a, body.high-contrast a {
-    color: #ffff00; /* Żółty tekst */
-    text-decoration: none; /* Podkreślenie dla lepszej widoczności */
-    background-color: #333333; /* Ciemne tło */
+    color: #ffff00;
+    text-decoration: none;
+    background-color: #333333;
 }
 
 /* Dla przycisków */
 html.high-contrast button, body.high-contrast button {
-    background-color: #333333; /* Ciemne tło */
-    color: #ffff00; /* Biały tekst */
-    border: 1px solid #ffffff; /* Biała ramka */
+    background-color: #333333;
+    color: #ffff00;
+    border: 1px solid #ffffff;
 }
 
 /* Dla etykiet */
 html.high-contrast label, body.high-contrast label {
-    color: #ffff00; /* Żółty tekst */
+    color: #ffff00;
 }
-
-
 
 
 /* Dla tabel */
 /* Tabela w trybie high-contrast */
 html.high-contrast table {
-    background-color: #000000; /* Czarny tło tabeli */
-    color: #ffffff; /* Biały tekst */
-    border-color: #ffffff; /* Białe ramki */
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #ffffff;
 }
 
 /* Wiersze tabeli (nagłówki) */
 html.high-contrast table thead tr {
-    background-color: #333333; /* Ciemnoszare tło dla nagłówków */
-    color: #ffff00; /* Żółty tekst dla nagłówków */
+    background-color: #333333;
+    color: #ffff00;
 }
 
 /* Wiersze tabeli (treść) */
 html.high-contrast table tbody tr {
-    background-color: #000000; /* Czarny tło dla wierszy */
-    color: #ffffff; /* Biały tekst */
+    background-color: #000000;
+    color: #ffffff;
 }
 
 /* Dla wierszy naprzemiennych (zebra striping) */
 html.high-contrast table tbody tr:nth-child(even) {
-    background-color: #222222; /* Ciemnoszare tło dla parzystych wierszy */
+    background-color: #222222;
 }
 
 /* Dla wierszy po najechaniu */
 html.high-contrast table tbody tr:hover {
-    background-color: #444444; /* Jeszcze jaśniejsze tło przy najechaniu */
-    color: #ffff00; /* Żółty tekst */
+    background-color: #444444;
+    color: #ffff00;
 }
 
 /* Komórki tabeli */
 html.high-contrast table th,
 html.high-contrast table td {
-    border: 1px solid #2c2c2c;  /* Białe obramowanie */
-    /*padding: 8px;  Odstęp wewnętrzny */
+    border: 1px solid #2c2c2c;
 }
-
-
-
-
 
 
 /* Dla dodatkowych elementów */

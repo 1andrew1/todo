@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+//use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
@@ -17,8 +17,9 @@ class SetLocale
     public function handle(Request $request, Closure $next): Response
     {
         $locale = session('locale'); // Pobierz język z sesji
-        //Log::info('Sesja z Middleware: ' . json_encode(session()->all()));
-        if (session()->has('locale')) { // sprawdzamy czy sesja isntnieje jeśli nie to ustawiamy język lokalny
+        // Log::info('Sesja z Middleware: ' . json_encode(session()->all()));
+        // Sprawdzamy czy sesja isntnieje jeśli nie to ustawiamy język lokalny
+        if (session()->has('locale')) {
             app()->setLocale(session()->get('locale'));
         } else {
             // Ustaw domyślny język z config/app.php, jeśli brak języka w sesji

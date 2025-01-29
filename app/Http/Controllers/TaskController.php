@@ -20,17 +20,17 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $query = Task::query();
-    
+
         // Wyszukiwanie po treści w nazwie
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
-    
+
         // Filtr według statusu
         if ($request->filled('status')) {
             $query->where('is_completed', $request->status);
         }
-    
+
         // Filtr według dat
         if ($request->filled('from_date')) {
             $query->whereDate('created_at', '>=', $request->from_date);
@@ -38,15 +38,14 @@ class TaskController extends Controller
         if ($request->filled('to_date')) {
             $query->whereDate('created_at', '<=', $request->to_date);
         }
-    
+
         if ($request->filled('sort') && $request->filled('order')) {
             $query->orderBy($request->sort, $request->order);
         } else {
-            $query->orderBy('created_at', 'desc'); // Domyślne sortowanie
+            $query->orderBy('created_at', 'desc');
         }
 
         // Pobieranie wyników z paginacją
-        // $tasks = $query->paginate(10)->withQueryString();
         $tasks = $query->paginate(10)->appends($request->query());
         return view('tasks.index', compact('tasks'));
     }
@@ -70,8 +69,9 @@ class TaskController extends Controller
         ]);
 
         try {
-            Task::create($validated); // Utworzenie nowego zadania
-            
+            // Utworzenie nowego zadania
+            Task::create($validated);
+
             return redirect()->route('tasks.index')
                 ->with('status', 'success')
                 ->with('message', __('messages.task_created'));
@@ -139,7 +139,7 @@ class TaskController extends Controller
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
-        
+
         if ($request->filled('from_date') && $request->filled('to_date')) {
             $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
         }
@@ -192,41 +192,26 @@ class TaskController extends Controller
 
     public function exportPdf(Request $request)
     {
-        /*
-        $tasks = Task::all()->map(function ($task, $index) {
-            return [
-                'lp' => $index + 1,
-                'title' => $task->title,
-                'status' => $task->is_completed ? __('messages.task_closed') : __('messages.task_open'),
-                'created_at' => $task->created_at->format('Y-m-d H:i:s'),
-            ];
-        });
+        // Pobieramy dane z modelu z uwzględnieniem filtrów
+        $query = Task::query();
 
-        $pdf = Pdf::loadView('tasks.pdf', compact('tasks'));
+        // Wyszukiwanie po treści w nazwie
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('from_date') && $request->filled('to_date')) {
+            $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_completed', $request->status);
+        }
+
+        $tasks = $query->get();
+
+        $pdf = PDF::loadView('tasks.pdf', compact('tasks'));
 
         return $pdf->download('tasks.pdf');
-        */
-    // Pobieramy dane z modelu z uwzględnieniem filtrów
-    $query = Task::query();
-
-    // Wyszukiwanie po treści w nazwie
-    if ($request->filled('search')) {
-       $query->where('title', 'like', '%' . $request->search . '%');
     }
-
-    if ($request->filled('from_date') && $request->filled('to_date')) {
-        $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
-    }
-
-    if ($request->filled('status')) {
-        $query->where('is_completed', $request->status);
-    }
-
-    $tasks = $query->get();
-
-    $pdf = PDF::loadView('tasks.pdf', compact('tasks'));
-
-    return $pdf->download('tasks.pdf');
-    }
-
 }

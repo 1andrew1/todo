@@ -11,10 +11,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //$middleware->append(\Illuminate\Session\Middleware\StartSession::class);
-        // zarejestrowanie w rutingu stworzonego middlewara w aplikacji
-        //$middleware->append(App\Http\Middleware\SetLocale::class);
-
         $middleware->appendToGroup('web', App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {

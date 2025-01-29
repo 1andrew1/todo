@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
-//use App\Http\Controllers\LanguageController;
-//use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
@@ -20,7 +18,7 @@ Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->where('task'
 Route::get('lang/{lang}', function ($lang) {
     if (in_array($lang, ['en', 'pl', 'fr'])) { // Walidacja obsługiwanych języków
         //Log::info('Sesja z Roure przed: ' . json_encode(session()->all()));
-        session()->put('locale', $lang); //zapisujemy wartość lang w sessji
+        session()->put('locale', $lang); // Zapisujemy wartość lang w sessji
         //Log::info('Sesja z Roure po: ' . json_encode(session()->all()));
         //dd(session()->all());
     }

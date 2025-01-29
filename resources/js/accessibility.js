@@ -1,5 +1,5 @@
 
-// Ustaw tryb high-contrast podczas ładowania strony
+// Set high-contrast mode when loading page
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('contrast-mode') === 'high-contrast') {
         document.documentElement.classList.add('high-contrast');
@@ -61,24 +61,24 @@ function toggleContrast() {
 function increaseFontSize() {
     const htmlElement = document.documentElement;
     const currentFontSize = parseInt(getComputedStyle(htmlElement).fontSize);
-    const newFontSize = Math.min(currentFontSize + 2, 32); // Maksymalny rozmiar to 32px
+    const newFontSize = Math.min(currentFontSize + 2, 32); // Maximum size is 32px
     htmlElement.style.fontSize = `${newFontSize}px`;
-    localStorage.setItem('font-size', newFontSize); // Zapisz w LocalStorage
+    localStorage.setItem('font-size', newFontSize); // Save to LocalStorage
 }
 
 function decreaseFontSize() {
     const htmlElement = document.documentElement;
     const currentFontSize = parseInt(getComputedStyle(htmlElement).fontSize);
-    const newFontSize = Math.max(currentFontSize - 2, 12); // Minimalny rozmiar to 12px
+    const newFontSize = Math.max(currentFontSize - 2, 12); // Minimum size is 12px
     htmlElement.style.fontSize = `${newFontSize}px`;
-    localStorage.setItem('font-size', newFontSize); // Zapisz w LocalStorage
+    localStorage.setItem('font-size', newFontSize); // Save to LocalStorage
 }
 
 function resetFontSize() {
     const htmlElement = document.documentElement;
-    const defaultFontSize = 16; // Domyślny rozmiar czcionki
+    const defaultFontSize = 16; // Default font size
     htmlElement.style.fontSize = `${defaultFontSize}px`;
-    localStorage.setItem('font-size', defaultFontSize); // Zapisz w LocalStorage
+    localStorage.setItem('font-size', defaultFontSize); // Save to LocalStorage
 }
 
 document.addEventListener('DOMContentLoaded', () => {

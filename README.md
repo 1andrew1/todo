@@ -8,7 +8,7 @@ TODO App is a web application that allows you to effectively manage your task li
 
 Accessibility requirements: Ability to adjust the font size, change the contrast and switch between light and dark mode. Multilingualism: The application is fully translated and currently supports two languages.
 
-<img src="https://github.com/1andrew1/todo/tree/main/public/img/todo-app-tasks.png" alt="Task list view panel"></a>
+<img src="https://github.com/1andrew1/todo/tree/main/public/img/todo-app-tasks.png" alt="Task list panel view"></a>
 
 The application was built on the Laravel 11 framework and uses the MySQL database.
 

@@ -22,7 +22,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191); // Ustawienie maksymalnej długości stringa
-        //app()->setLocale('en');
-        //App::setlocale('pl');
     }
 }
